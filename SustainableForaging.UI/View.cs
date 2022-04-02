@@ -234,5 +234,17 @@ namespace SustainableForaging.UI
                 io.PrintLine($"{item.Id}: {item.Name}, {item.Category}, {item.DollarsPerKilogram:0.00} $/kg");
             }
         }
+
+        public void DisplayForager(Forager forager)
+        {
+            if(forager == null)
+            {
+                io.PrintLine("No forager selected");
+            }
+            else
+            {
+                io.PrintLine($"{forager.FirstName} {forager.LastName} in {forager.State}");
+            }
+        }
     }
 }

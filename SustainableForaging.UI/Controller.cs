@@ -50,7 +50,7 @@ namespace SustainableForaging.UI
                         ViewItems();
                         break;
                     case MainMenuOption.ViewForagers:
-                        GetForager();
+                        view.DisplayForager(GetForager());
                         break;
                     case MainMenuOption.AddForage:
                         AddForage();
