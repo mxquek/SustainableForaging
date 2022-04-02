@@ -16,6 +16,11 @@ namespace SustainableForaging.BLL.Tests.TestDoubles
         {
             foragers.Add(FORAGER);
         }
+        //TODO copy implementation of ForagerFileRepository Add()
+        public Forager Add(Forager forager)
+        {
+            throw new NotImplementedException();
+        }
         public List<Forager> FindAll()
         {
             return foragers;
