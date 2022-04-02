@@ -40,6 +40,10 @@ namespace SustainableForaging.UI
             DisplayHeader(MainMenuOption.ViewForagesByDate.ToLabel());
             return io.ReadDate("Select a date [MM/dd/yyyy]: ");
         }
+        public string GetForagerInfo(string prompt)
+        {
+            return io.ReadRequiredString(prompt);
+        }
 
         public string GetForagerNamePrefix()
         {
@@ -121,6 +125,15 @@ namespace SustainableForaging.UI
             return forage;
         }
 
+        public Forager MakeForager()
+        {
+            DisplayHeader(MainMenuOption.AddForager.ToLabel());
+            Forager forager = new Forager();
+            forager.FirstName = GetForagerInfo("Forager's First Name: ");
+            forager.LastName = GetForagerInfo("Forager's Last Name: ");
+            forager.State = GetForagerInfo("Forager's State: ");
+            return forager;
+        }
         public Item MakeItem()
         {
             DisplayHeader(MainMenuOption.AddItem.ToLabel());

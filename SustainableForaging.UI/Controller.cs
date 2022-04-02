@@ -53,8 +53,7 @@ namespace SustainableForaging.UI
                         AddForage();
                         break;
                     case MainMenuOption.AddForager:
-                        view.DisplayStatus(false, "NOT IMPLEMENTED");
-                        view.EnterToContinue();
+                        AddForager();
                         break;
                     case MainMenuOption.AddItem:
                         AddItem();
@@ -119,6 +118,20 @@ namespace SustainableForaging.UI
             }
         }
 
+        private void AddForager()
+        {
+            Forager forager = view.MakeForager();
+            Result<Forager> result = foragerService.Add(forager);
+            if (!result.Success)
+            {
+                view.DisplayStatus(false, result.Messages);
+            }
+            else
+            {
+                string successMessage = $"Forager {result.Value.FirstName} {result.Value.LastName} created.";
+                view.DisplayStatus(true, successMessage);
+            }
+        }
         private void AddItem()
         {
             Item item = view.MakeItem();

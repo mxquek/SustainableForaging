@@ -60,9 +60,8 @@ namespace SustainableForaging.BLL
                 return result;
             }
 
-            //TODO implement ForagerFileRepository Add()
             forager.Id = Guid.NewGuid().ToString();
-            repository.Add(forager);
+            result.Value = repository.Add(forager);
 
             return result;
         }
