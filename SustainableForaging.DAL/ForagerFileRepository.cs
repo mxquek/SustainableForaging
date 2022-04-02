@@ -17,6 +17,11 @@ namespace SustainableForaging.DAL
             this.filePath = filePath;
         }
 
+        public Forager Add(Forager forager)
+        {
+            throw new NotImplementedException();
+        }
+
         public List<Forager> FindAll()
         {
             var foragers = new List<Forager>();
@@ -73,5 +78,7 @@ namespace SustainableForaging.DAL
             result.State = fields[3];
             return result;
         }
+
+        //TODO implement serialize
     }
 }

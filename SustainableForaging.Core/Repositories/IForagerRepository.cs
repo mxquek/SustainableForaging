@@ -10,5 +10,7 @@ namespace SustainableForaging.Core.Repositories
         List<Forager> FindAll();
 
         List<Forager> FindByState(string stateAbbr);
+
+        Forager Add(Forager forager);
     }
 }

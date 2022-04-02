@@ -1,5 +1,6 @@
 ﻿using SustainableForaging.Core.Models;
 using SustainableForaging.Core.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -29,6 +30,38 @@ namespace SustainableForaging.BLL
         public Result<Forager> Add(Forager forager)
         {
             var result = new Result<Forager>();
+            if(forager == null)
+            {
+                result.AddMessage("Forager must not be null.");
+                return result;
+            }
+            if (string.IsNullOrWhiteSpace(forager.FirstName))
+            {
+                result.AddMessage("Forager's first name is requried.");
+            }
+            if (string.IsNullOrWhiteSpace(forager.LastName))
+            {
+                result.AddMessage("Forager's last name is requried.");
+            }
+            if (string.IsNullOrWhiteSpace(forager.State))
+            {
+                result.AddMessage("Forager's state is requried.");
+            }
+            else if(repository.FindAll()
+                    .Any(i => i.FirstName.Equals(forager.FirstName, StringComparison.OrdinalIgnoreCase)
+                    && i.LastName.Equals(forager.LastName, StringComparison.OrdinalIgnoreCase)
+                    && i.State.Equals(forager.State, StringComparison.OrdinalIgnoreCase)))
+            {
+                result.AddMessage($"Forager '{forager.FirstName} {forager.LastName}' from '{forager.State}' is a duplicate.");
+            }
+
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            //TODO implement ForagerFileRepository Add()
+            repository.Add(forager);
 
             return result;
         }
