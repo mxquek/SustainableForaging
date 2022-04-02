@@ -33,7 +33,10 @@ namespace SustainableForaging.DAL.Tests
             Forager forager = MakeForager();
 
             Forager actual = repository.Add(forager);
-            Assert.AreEqual(expected, actual);
+            Assert.AreEqual(expected.Id, actual.Id);
+            Assert.AreEqual(expected.FirstName, actual.FirstName);
+            Assert.AreEqual(expected.LastName, actual.LastName);
+            Assert.AreEqual(expected.State, actual.State);
         }
 
         private Forager MakeForager()

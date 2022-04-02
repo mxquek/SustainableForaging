@@ -10,6 +10,7 @@ namespace SustainableForaging.DAL
 {
     public class ForagerFileRepository : IForagerRepository
     {
+        private const string HEADER = "id,first_name,last_name,state";
         private readonly string filePath;
 
         public ForagerFileRepository(string filePath)
@@ -19,7 +20,16 @@ namespace SustainableForaging.DAL
 
         public Forager Add(Forager forager)
         {
-            throw new NotImplementedException();
+            if(forager == null)
+            {
+                return null;
+            }
+
+            List<Forager> all = FindAll();
+            all.Add(forager);
+            Write(all);
+
+            return forager;
         }
 
         public List<Forager> FindAll()
@@ -63,7 +73,14 @@ namespace SustainableForaging.DAL
                 .Where(i => i.State == stateAbbr)
                 .ToList();
         }
-
+        private string Serialize(Forager forager)
+        {
+            return string.Format("{0},{1},{2},{3}",
+                    forager.Id,
+                    forager.FirstName,
+                    forager.LastName,
+                    forager.State);
+        }
         private Forager Deserialize(string[] fields)
         {
             if(fields.Length != 4)
@@ -79,6 +96,27 @@ namespace SustainableForaging.DAL
             return result;
         }
 
-        //TODO implement serialize
+        private void Write(List<Forager> foragers)
+        {
+            try
+            {
+                using StreamWriter writer = new StreamWriter(filePath);
+                writer.WriteLine(HEADER);
+
+                if (foragers == null)
+                {
+                    return;
+                }
+
+                foreach (var forager in foragers)
+                {
+                    writer.WriteLine(Serialize(forager));
+                }
+            }
+            catch (IOException ex)
+            {
+                throw new RepositoryException("could not write items", ex);
+            }
+        }
     }
 }

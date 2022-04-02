@@ -19,7 +19,11 @@ namespace SustainableForaging.BLL.Tests.TestDoubles
         //TODO copy implementation of ForagerFileRepository Add()
         public Forager Add(Forager forager)
         {
-            throw new NotImplementedException();
+            List<Forager> all = FindAll();
+            forager.Id = Guid.NewGuid().ToString();
+            all.Add(forager);
+
+            return forager;
         }
         public List<Forager> FindAll()
         {
