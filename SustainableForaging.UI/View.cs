@@ -246,5 +246,13 @@ namespace SustainableForaging.UI
                 io.PrintLine($"{forager.FirstName} {forager.LastName} in {forager.State}");
             }
         }
+
+        public void DisplayReportCategoryValue(Dictionary<Category, decimal> report)
+        {
+            foreach (KeyValuePair<Category,decimal> entry in report)
+            {
+                io.PrintLine($"{entry.Key}: {entry.Value:C}");
+            }
+        }
     }
 }

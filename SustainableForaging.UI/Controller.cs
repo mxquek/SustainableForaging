@@ -66,8 +66,7 @@ namespace SustainableForaging.UI
                         view.EnterToContinue();
                         break;
                     case MainMenuOption.ReportCategoryValue:
-                        view.DisplayStatus(false, "NOT IMPLEMENTED");
-                        view.EnterToContinue();
+                        ReportCategoryValue();
                         break;
                     case MainMenuOption.Generate:
                         Generate();
@@ -149,7 +148,10 @@ namespace SustainableForaging.UI
                 view.DisplayStatus(true, successMessage);
             }
         }
-
+        private void ReportCategoryValue()
+        {
+            view.DisplayReportCategoryValue(forageService.ReportCategoryValue(view.GetForageDate()));
+        }
         private void Generate()
         {
             ForageGenerationRequest request = view.GetForageGenerationRequest();
