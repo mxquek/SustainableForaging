@@ -25,5 +25,12 @@ namespace SustainableForaging.BLL
                     .Where(i => i.LastName.StartsWith(prefix))
                     .ToList();
         }
+
+        public Result<Forager> Add(Forager forager)
+        {
+            var result = new Result<Forager>();
+
+            return result;
+        }
     }
 }
