@@ -2,6 +2,7 @@
 using SustainableForaging.BLL.Tests.TestDoubles;
 using SustainableForaging.Core.Models;
 using System;
+using System.Collections.Generic;
 
 namespace SustainableForaging.BLL.Tests
 {
@@ -59,6 +60,22 @@ namespace SustainableForaging.BLL.Tests
 
             Result<Forage> result = service.Add(forage);
             Assert.IsFalse(result.Success);
+        }
+
+        [Test]
+        public void ShouldReportCategoryValue()
+        {
+            List<Forage> todaysForages = service.FindByDate(DateTime.Today);
+            List<decimal> expectedValues = new List<decimal>();     //ADD in values later
+            Dictionary<Category, decimal> expected = new Dictionary<Category, decimal>();
+            Category category;
+            for (int i = 0; i < 4; i++)
+            {
+                category = (Category)Enum.Parse(typeof(Category),i.ToString());
+                expected.Add(category, 0);
+            }
+            
+            Dictionary<Category,decimal> actual = service.ReportCategoryValue(DateTime.Today);
         }
     }
 }

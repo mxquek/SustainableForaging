@@ -49,6 +49,30 @@ namespace SustainableForaging.BLL
             return result;
         }
 
+        public Dictionary<Category, decimal> ReportCategoryValue(DateTime requestedDate)
+        {
+            List<Forage> requestedDayForages = FindByDate(requestedDate);
+            Dictionary<Category, decimal> report = new Dictionary<Category, decimal>();
+            decimal totalValue;
+            Category category;
+
+            foreach (string categoryName in Enum.GetNames(typeof(Category)))
+            {
+                totalValue = 0;
+                foreach (Forage forage in requestedDayForages)
+                {
+                    if (forage.Item.Category.ToString() == categoryName)
+                    {
+                        totalValue += (forage.Item.DollarsPerKilogram * forage.Kilograms);
+                    }
+                }
+                category = (Category)Enum.Parse(typeof(Category), categoryName);
+                
+                report.Add(category, totalValue);
+            }
+                return report;
+        }
+
         public int Generate(DateTime start, DateTime end, int count)
         {
             if(start > end || count <= 0)
@@ -151,5 +175,6 @@ namespace SustainableForaging.BLL
                 result.AddMessage("Item does not exist.");
             }
         }
+
     }
 }
