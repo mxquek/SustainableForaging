@@ -63,6 +63,12 @@ namespace SustainableForaging.BLL.Tests
         }
 
         [Test]
+        public void ShouldReportKgPerItem()
+        {
+            Dictionary<Item, decimal> expected = new Dictionary<Item, decimal>();
+        }
+
+        [Test]
         public void ShouldReportCategoryValue()
         {
             List<Forage> todaysForages = service.FindByDate(DateTime.Today);

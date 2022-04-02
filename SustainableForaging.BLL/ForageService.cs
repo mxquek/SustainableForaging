@@ -48,7 +48,27 @@ namespace SustainableForaging.BLL
 
             return result;
         }
+        public Dictionary<Item,decimal> ReportKgPerItem(DateTime requestedDate)
+        {
+            List<Forage> requestedDayForages = FindByDate(requestedDate);
+            List<Item> items = itemRepository.FindAll();
+            Dictionary<Item, decimal> report = new Dictionary<Item, decimal>();
+            decimal totalKg;
 
+            foreach(Item item in items)
+            {
+                totalKg = 0;
+                foreach(Forage forage in requestedDayForages)
+                {
+                    if(forage.Item.Name == item.Name)
+                    {
+                        totalKg += forage.Kilograms;
+                    }
+                }
+                report.Add(item, totalKg);
+            }
+            return report;
+        }
         public Dictionary<Category, decimal> ReportCategoryValue(DateTime requestedDate)
         {
             List<Forage> requestedDayForages = FindByDate(requestedDate);
@@ -70,7 +90,7 @@ namespace SustainableForaging.BLL
                 
                 report.Add(category, totalValue);
             }
-                return report;
+            return report;
         }
 
         public int Generate(DateTime start, DateTime end, int count)
