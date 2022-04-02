@@ -49,6 +49,9 @@ namespace SustainableForaging.UI
                     case MainMenuOption.ViewItems:
                         ViewItems();
                         break;
+                    case MainMenuOption.ViewForagers:
+                        GetForager();
+                        break;
                     case MainMenuOption.AddForage:
                         AddForage();
                         break;

@@ -23,7 +23,7 @@ namespace SustainableForaging.BLL
         public List<Forager> FindByLastName(string prefix)
         {
             return repository.FindAll()
-                    .Where(i => i.LastName.StartsWith(prefix))
+                    .Where(i => i.LastName.StartsWith(prefix,StringComparison.OrdinalIgnoreCase))
                     .ToList();
         }
 
