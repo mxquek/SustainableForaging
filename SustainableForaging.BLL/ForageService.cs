@@ -141,6 +141,12 @@ namespace SustainableForaging.BLL
             }
 
             ValidateChildrenExist(forage, result);
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            ValidateIsNotDuplicate(forage, result);
 
             return result;
         }
@@ -193,6 +199,17 @@ namespace SustainableForaging.BLL
             if(itemRepository.FindById(forage.Item.Id) == null)
             {
                 result.AddMessage("Item does not exist.");
+            }
+        }
+
+        private void ValidateIsNotDuplicate(Forage newForage, Result<Forage> result)
+        {
+            var forages = FindByDate(newForage.Date);
+
+            if(forages.Any(existingForager => existingForager.Forager == newForage.Forager
+                                        && existingForager.Item == newForage.Item))
+            {
+                result.AddMessage("This is a duplicate forage. Date, forager, and item combination must be unique.");
             }
         }
 
