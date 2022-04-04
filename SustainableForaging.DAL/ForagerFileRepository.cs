@@ -75,6 +75,7 @@ namespace SustainableForaging.DAL
         }
         private string Serialize(Forager forager)
         {
+            forager.LastName = forager.LastName.Replace(',','-');
             return string.Format("{0},{1},{2},{3}",
                     forager.Id,
                     forager.FirstName,
@@ -91,7 +92,7 @@ namespace SustainableForaging.DAL
             Forager result = new Forager();
             result.Id = fields[0];
             result.FirstName = fields[1];
-            result.LastName = fields[2];
+            result.LastName = fields[2].Replace('-',',');
             result.State = fields[3];
             return result;
         }

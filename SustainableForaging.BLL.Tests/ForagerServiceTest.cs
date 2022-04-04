@@ -14,7 +14,6 @@ namespace SustainableForaging.BLL.Tests
         ForagerService service = new ForagerService(new ForagerRepositoryDouble());
 
         [Test]
-        //Service.Add() Not Yet Implemented
         public void ShouldNotSaveNullFirstName()
         {
             Forager forager = new Forager("ID", null, "Smith", "TX");
