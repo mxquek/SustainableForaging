@@ -62,8 +62,7 @@ namespace SustainableForaging.UI
                         AddItem();
                         break;
                     case MainMenuOption.ReportKgPerItem:
-                        view.DisplayStatus(false, "NOT IMPLEMENTED");
-                        view.EnterToContinue();
+                        ReportKgPerItem();
                         break;
                     case MainMenuOption.ReportCategoryValue:
                         ReportCategoryValue();
@@ -148,9 +147,15 @@ namespace SustainableForaging.UI
                 view.DisplayStatus(true, successMessage);
             }
         }
+        private void ReportKgPerItem()
+        {
+            view.DisplayKgPerItem(forageService.ReportKgPerItem(view.GetForageDate()));
+            view.EnterToContinue();
+        }
         private void ReportCategoryValue()
         {
             view.DisplayReportCategoryValue(forageService.ReportCategoryValue(view.GetForageDate()));
+            view.EnterToContinue();
         }
         private void Generate()
         {

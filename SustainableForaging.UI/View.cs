@@ -247,6 +247,14 @@ namespace SustainableForaging.UI
             }
         }
 
+        public void DisplayKgPerItem(Dictionary<Item, decimal> report)
+        {
+            foreach (KeyValuePair<Item, decimal> entry in report)
+            {
+                io.PrintLine($"{entry.Key.Name}: {entry.Value.ToString("0.00")}");
+            }
+        }
+
         public void DisplayReportCategoryValue(Dictionary<Category, decimal> report)
         {
             foreach (KeyValuePair<Category,decimal> entry in report)
