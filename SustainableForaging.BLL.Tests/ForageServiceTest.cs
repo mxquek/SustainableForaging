@@ -113,17 +113,35 @@ namespace SustainableForaging.BLL.Tests
         [Test]
         public void ShouldReportCategoryValue()
         {
-            List<Forage> todaysForages = service.FindByDate(DateTime.Today);
-            List<decimal> expectedValues = new List<decimal>();     //ADD in values later
-            Dictionary<Category, decimal> expected = new Dictionary<Category, decimal>();
-            Category category;
-            for (int i = 0; i < 4; i++)
-            {
-                category = (Category)Enum.Parse(typeof(Category),i.ToString());
-                expected.Add(category, 0);
-            }
-            
-            Dictionary<Category,decimal> actual = service.ReportCategoryValue(DateTime.Today);
+            Forage forage1 = new Forage();
+            forage1.Date = DateTime.Today.Date;
+            forage1.Forager = ForagerRepositoryDouble.FORAGER;
+            forage1.Item = ItemRepositoryDouble.ITEM;
+            forage1.Kilograms = 0.5M;
+            service.Add(forage1);
+
+            Forage forage2 = new Forage();
+            forage2.Date = DateTime.Today.Date;
+            forage2.Forager = ForagerRepositoryDouble.FORAGER2;
+            forage2.Item = ItemRepositoryDouble.ITEM;
+            forage2.Kilograms = 0.15M;
+            service.Add(forage2);
+
+            Forage forage3 = new Forage();
+            forage3.Date = DateTime.Today.Date;
+            forage3.Forager = ForagerRepositoryDouble.FORAGER2;
+            forage3.Item = ItemRepositoryDouble.ITEM2;
+            forage3.Kilograms = 0.3M;
+            service.Add(forage3);
+
+            Dictionary<Category, decimal> result = service.ReportCategoryValue(DateTime.Today);
+
+            Assert.IsTrue(result.Where(record => record.Key.ToString() == ItemRepositoryDouble.ITEM.Category.ToString())
+                                .Sum(record => record.Value)
+                                == (0.65M * 9.99M));
+            Assert.IsTrue(result.Where(record => record.Key.ToString() == ItemRepositoryDouble.ITEM2.Category.ToString())
+                                .Sum(record => record.Value)
+                                == 0.6M);
         }
     }
 }

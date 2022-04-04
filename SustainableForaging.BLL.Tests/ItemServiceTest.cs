@@ -48,7 +48,7 @@ namespace SustainableForaging.BLL.Tests
             Result<Item> result = service.Add(item);
 
             Assert.NotNull(result.Value);
-            Assert.AreEqual(2, result.Value.Id);
+            Assert.AreEqual(3, result.Value.Id);
         }
     }
 }
