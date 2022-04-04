@@ -58,13 +58,10 @@ namespace SustainableForaging.BLL
             foreach(Item item in items)
             {
                 totalKg = 0;
-                foreach(Forage forage in requestedDayForages)
-                {
-                    if(forage.Item.Name == item.Name)
-                    {
-                        totalKg += forage.Kilograms;
-                    }
-                }
+
+                totalKg = requestedDayForages.Where(forage => forage.Item.Name == item.Name)
+                                                .Sum(forage => forage.Kilograms);
+
                 report.Add(item, totalKg);
             }
             return report;
@@ -79,15 +76,12 @@ namespace SustainableForaging.BLL
             foreach (string categoryName in Enum.GetNames(typeof(Category)))
             {
                 totalValue = 0;
-                foreach (Forage forage in requestedDayForages)
-                {
-                    if (forage.Item.Category.ToString() == categoryName)
-                    {
-                        totalValue += (forage.Item.DollarsPerKilogram * forage.Kilograms);
-                    }
-                }
+
+                totalValue = requestedDayForages.Where(forage => forage.Item.Category.ToString() == categoryName)
+                                    .Sum(forage => (forage.Item.DollarsPerKilogram * forage.Kilograms));
+
                 category = (Category)Enum.Parse(typeof(Category), categoryName);
-                
+
                 report.Add(category, totalValue);
             }
             return report;
