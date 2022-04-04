@@ -8,11 +8,13 @@ namespace SustainableForaging.BLL.Tests.TestDoubles
     public class ItemRepositoryDouble : IItemRepository
     {
         public static readonly Item ITEM = new Item(1, "Chanterelle", Category.Edible, 9.99M);
+        public static readonly Item ITEM2 = new Item(2, "Daisy", Category.Medicinal, 2.00M);
         private List<Item> items = new List<Item>();
 
         public ItemRepositoryDouble()
         {
             items.Add(ITEM);
+            items.Add(ITEM2);
         }
         public Item Add(Item item)
         {

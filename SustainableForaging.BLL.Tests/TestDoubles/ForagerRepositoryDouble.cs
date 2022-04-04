@@ -9,12 +9,14 @@ namespace SustainableForaging.BLL.Tests.TestDoubles
     public class ForagerRepositoryDouble : IForagerRepository
     {
         public readonly static Forager FORAGER = MakeForager();
+        public readonly static Forager FORAGER2 = MakeForager2();
 
         private readonly List<Forager> foragers = new List<Forager>();
 
         public ForagerRepositoryDouble()
         {
             foragers.Add(FORAGER);
+            foragers.Add(FORAGER2);
         }
         //TODO copy implementation of ForagerFileRepository Add()
         public Forager Add(Forager forager)
@@ -50,6 +52,17 @@ namespace SustainableForaging.BLL.Tests.TestDoubles
             forager.LastName = "Sisse";
             forager.State = "GA";
             return forager;
+        }
+
+        private static Forager MakeForager2()
+        {
+            Forager forager2 = new Forager();
+            forager2.Id = "40816379-188d-4552-913f-9a48405e8c09";
+            forager2.FirstName = "John";
+            forager2.LastName = "Smith";
+            forager2.State = "TX";
+
+            return forager2;
         }
     }
 }
